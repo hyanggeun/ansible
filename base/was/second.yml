@@ -1,0 +1,51 @@
+- name: Configure http in web group 
+  hosts: web
+  become: true
+  remote_user: devops
+  tasks:
+    - name: yum httpd
+      yum:
+        name: httpd
+        state: latest
+    - name: start and enable httpd service
+      service:
+          name: httpd
+          state: started
+          enabled: true
+    - name: open firewalld
+      firewalld:
+          service: http
+          immediate: true
+          state: enabled
+          permanent: true
+    - name: Make file in /var/www/html/index.html
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+        mode: '0644'
+    
+    
+
+
+- name: Configure mariadb-server in db group
+  hosts: db
+  become: true
+  remote_user: devops
+  tasks:
+    - name: yum mariadb-server
+      yum: 
+        name: mariadb-server
+        state: latest
+    
+    - name: service start
+      service: 
+        name: mariadb
+        state: started
+        enabled: true
+
+    - name: openfirewall
+      firewalld:
+        service: mysql
+        permanent: true
+        immediate: true
+        state: enabled

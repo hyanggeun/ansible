@@ -1,0 +1,13 @@
+- name: Remove httpd and maria-server
+  hosts: web
+  become: true
+  remote_user: devops
+  tasks:
+    - name: Remove httpd
+      yum: 
+        name: httpd
+        autoremove: yes
+    - name: Remove maria-server
+      yum: 
+        name: maria-server
+        autoremove: yes
