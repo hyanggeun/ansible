@@ -1,0 +1,19 @@
+---
+- name: Deploy the autofs 
+  hosts: autofs
+  become: true
+  tasks:
+    - name: install autofs
+      yum:
+        name: autofs
+        state: latest
+
+- name: service on
+  hosts: autofs
+  become: true
+  tasks:
+    - name: service autofs
+      service:
+        name: autofs
+        state: started
+        enabled: true

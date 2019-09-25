@@ -1,0 +1,41 @@
+- name: Configure Web App
+  hosts: web
+  become: true
+  tasks:
+    - name: Install the web Package
+      yum:
+        name: httpd
+        state: latest
+    - name: Start the Service
+      service:
+        name: httpd
+        state: started
+        enabled: true
+    - name: Open the Service
+      firewalld:
+        service: http
+        immediate: true
+        permanent: true
+        state: enabled
+
+- name: Configure DB Server
+  hosts: db
+  become: true
+  tasks: 
+    - name: Install the DB
+      yum: 
+        name: mariadb-server
+        state: latest
+
+    - name: Start the Server
+      service:
+        name: mariadb
+        state: started
+        enabled: true
+    
+    - name: Open the firewalld
+      firewalld:
+        service: mysql
+        immediate: true
+        permanent: true
+        state: enabled

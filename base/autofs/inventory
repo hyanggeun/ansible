@@ -1,0 +1,6 @@
+[autofs]
+m1
+m3
+
+[autofs:vars]
+ansible_user=devops
