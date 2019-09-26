@@ -1,0 +1,6 @@
+[web]
+m1
+m2
+
+[web:vars]
+ansible_user=devops

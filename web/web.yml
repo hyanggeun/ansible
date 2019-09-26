@@ -1,0 +1,31 @@
+- name: Move http conf and port 80 to 4000
+  hosts: web
+  vars: 
+    http_var: http
+    httpd_var: httpd
+    http_port: 4000
+    service_module: service
+  become: true
+  tasks: 
+    - name: "copy {{httpd_var}}.conf"
+      copy:
+        src: "{{ httpd_var }}.conf"
+        dest: "/etc/{{httpd_var}}/conf/"
+      notify:
+        - "{{service_module}} restart"
+    
+    - name: open firewalld
+      firewalld:
+          port: "{{http_port}}/tcp"
+          permanent: true
+          state: enabled
+          immediate: true
+      notify:
+        - "{{service_module}} restart" 
+
+
+  handlers:
+    - name: "{{service_module}} restart"
+      service:
+        name: httpd
+        state: restarted
