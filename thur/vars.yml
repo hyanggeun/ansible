@@ -1,0 +1,12 @@
+- name: Test variables 
+  hosts: m1
+  vars:
+    test: varplaybook
+  tasks:
+  - name: Display variables
+    debug:
+      var: test     
+    
+  - name: Display variables
+    debug:
+      msg: "{{test}}"

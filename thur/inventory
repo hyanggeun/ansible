@@ -1,0 +1,7 @@
+[web]
+m1 test=inventory_host
+m2
+
+[web:vars]
+test=inventory_group
+ansible_user=devops

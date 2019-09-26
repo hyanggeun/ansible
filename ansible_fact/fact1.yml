@@ -1,0 +1,28 @@
+---
+- name: sda1 in m1
+  remote_user: devops 
+  hosts: m1
+  tasks:
+    - name: Check ansible m1 vda1
+      debug: 
+        var:  ansible_facts.devices.sda.partitions.sda1
+
+- name: sda1 in m2 
+  hosts: m2
+  remote_user: devops
+  tasks: 
+    - name: Check ansible m2 sda1
+      debug: 
+        var: ansible_facts.devices.sda.partitions.sda1
+
+- name: Distribution and eth0 in m3
+  hosts: m3
+  remote_user: devops
+  tasks: 
+    - name: Check ansible distribution 
+      debug: 
+        var: ansible_facts.distribution
+    - name: Chech eth0    
+      debug:
+        var: ansible_facts.eth0
+
