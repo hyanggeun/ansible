@@ -1,0 +1,15 @@
+- name: Configure web and Db server 
+  hosts: all
+  become: true
+  remote_user: devops
+  tasks:
+  - name: Configure Web server
+    include_vars: var/vars_http.yml
+    when: inventory_hostname in groups.web
+
+  - name: Configure Db server
+    include_vars: var/vars_db.yml
+    when: inventory_hostname in groups.db
+
+  - name: Configre Db server
+    include_tasks: tasks/task.yml

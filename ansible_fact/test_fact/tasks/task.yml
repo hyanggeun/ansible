@@ -1,0 +1,15 @@
+- name: yum httpd
+  yum:
+    name: "{{svc}}"
+    state: latest
+- name: start and enable {{svc}} service
+  service:
+      name: "{{svc}}"
+      state: started
+      enabled: true
+- name: open firewalld
+  firewalld:
+      service: "{{fw}}"
+      immediate: true
+      state: enabled
+      permanent: true

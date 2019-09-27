@@ -26,3 +26,16 @@
       debug:
         var: ansible_facts.eth0
 
+- name: register variable
+  hosts: m3
+  become: true
+  remote_user: devops
+  tasks:
+    - name: Install the tree
+      yum: 
+        name: tree
+      register: rst #이곳에 변수가 register 변수가 저장된다.
+    
+    - name: Display var register
+      debug:
+        var: rst

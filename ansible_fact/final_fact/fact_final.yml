@@ -1,0 +1,23 @@
+- name: Install the was
+  hosts: all
+  remote_user: devops
+  become: true
+  tasks:
+    - name: Remove httpd
+      yum: 
+        name: httpd
+        autoremove: yes
+    - name: Install web Package
+      yum:
+        name: httpd
+        state: latest
+      when: inventory_hostname in groups.web
+    - name: Remove maria-server
+      yum: 
+        name: mariadb
+        autoremove: yes
+    - name: Install db
+      yum:
+        name: mariadb
+        state: latest
+      when: inventory_hostname in groups.db
